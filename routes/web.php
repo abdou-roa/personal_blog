@@ -20,3 +20,18 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+//routes with no middleware
+
+
+// admin routes 
+
+Route::group(['middleware'=>'admin', 'prefix'=>'admin'], function(){
+
+});
+
+// authenticated user routes   
+
+Route::group(['middleware'=>'auth'], function(){
+    
+});

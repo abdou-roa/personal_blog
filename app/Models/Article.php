@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 class Article extends Model
 {
@@ -18,10 +19,21 @@ class Article extends Model
         'article_title',
         'article_text',
         'category',
-        'tags',
+        'file',
     ];
 
     protected $casts = [
         'tags' => 'array',
     ];
+
+    public static function boot()
+    {
+         parent::boot();
+        
+         static::creating(function ($model) {
+             $model->article_id = Str::uuid();
+         });
+    }
+
+    protected $primaryKey = 'article_id';
 }

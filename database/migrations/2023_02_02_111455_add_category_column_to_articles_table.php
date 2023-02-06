@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             //
-            $table->string('article_image')->nullable();
+            $table->string('category')->nullable();
         });
     }
 
@@ -28,7 +28,6 @@ return new class extends Migration
     {
         Schema::table('articles', function (Blueprint $table) {
             //
-            $table->dropColumn('file');
         });
     }
 };

@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('articles', function (Blueprint $table) {
+        Schema::table('categories', function (Blueprint $table) {
             //
-            $table->string('article_image')->nullable();
+            $table->dropColumn('articles_number');
         });
     }
 
@@ -26,9 +26,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('articles', function (Blueprint $table) {
+        Schema::table('categories', function (Blueprint $table) {
             //
-            $table->dropColumn('file');
         });
     }
 };

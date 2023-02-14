@@ -2,11 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Category;
+use App\Models\Tag;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-class CategoryController extends Controller
+class TagController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -16,12 +16,8 @@ class CategoryController extends Controller
     public function index()
     {
         //
-        // $categories = Category::all()->get(function($data){
-        //     return $data->count();
-        // });
-        $categories = Category::all()->sortByDesc('created_at');
-        $articlesNumber = $categories->count();
-        return view('admin.category.manageCategories',compact('categories', 'articlesNumber'));
+        $tags = DB::table('tags')->get();
+        return view('admin.tags.manageTags', compact('tags'));
     }
 
     /**
@@ -32,7 +28,7 @@ class CategoryController extends Controller
     public function create()
     {
         //
-        return view('admin.category.addCategory');
+        return view('admin.tags.addTag');
     }
 
     /**
@@ -43,10 +39,11 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        $newCat = new Category ;
-        $newCat->category_name = $request->category_name;
-        $newCat->save();
-        return redirect()->route('manageCategories');
+        //
+        $tag = new Tag();
+        $tag->tag_name = $request->tag_name;
+        $tag->save();
+        return redirect()->route('manageTags');
     }
 
     /**
@@ -69,10 +66,8 @@ class CategoryController extends Controller
     public function edit($id)
     {
         //
-        $category = DB::table('categories')
-        ->where('category_id', '=', $id)->first();
-        // $category = $categorye['0'];
-        return view('admin.category.editCategory',compact('category'));
+        $tag = DB::table('tags')->where('tag_id','=',$id)->first();
+        return view('admin.tags.editTag',compact('tag'));
     }
 
     /**
@@ -85,17 +80,10 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         //
-        // $category = DB::table('categories')
-        // ->where('category_id', '=', $id)
-        // ->get();
-
-        DB::table('categories')
-        ->where('category_id', '=', $id)
-        ->update(['category_name'=>$request->category_name]);
-
-        // $category->category_name = $request->category_name;
-        // $category->save();
-        return redirect()->route('manageCategories');
+        DB::table('tags')
+        ->where('tag_id', '=', $id)
+        ->update(['tag_name'=>$request->tag_name]);
+        return redirect()->route('manageTags');
     }
 
     /**
@@ -107,10 +95,16 @@ class CategoryController extends Controller
     public function destroy($id)
     {
         //
+        $tag = DB::table('tags')
+        ->where('tag_id', '=', $id)
+        ->delete();
+        return redirect()->route('manageTags');
+    }
+
+
+    // ___________________________________________________________________
+
+    public function addArticleTag(Request $request){
         
-        $category = DB::table('categories')
-        ->where('category_id', '=', $id);
-        $category->delete();
-        return redirect()->back();
     }
 }

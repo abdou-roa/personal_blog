@@ -93,6 +93,7 @@
                 <li class="sb-nav-link my-2 d-flex justify-content-start"><a href="" class="d-flex px-3 nav-link"><div class="icon px-4"><i class="fa-solid fa-newspaper"></i></div> <div class="link-name">Articles</div></a></li>
                 <li class="sb-nav-link my-2 d-flex justify-content-start"><a href="" class="d-flex px-3 nav-link"><div class="icon px-4"><i class="fa-solid fa-inbox"></i></div> <div class="link-name">Inbox</div></a></li>
                 <li class="sb-nav-link my-2 d-flex justify-content-start"><a href="{{route('manageCategories')}}" class="d-flex px-3 nav-link"><div class="icon px-4"><i class="fa-solid fa-tree"></i></div> <div class="link-name">Category</div></a></li>
+                <li class="sb-nav-link my-2 d-flex justify-content-start"><a href="{{route('manageTags')}}" class="d-flex px-3 nav-link"><div class="icon px-4"><i class="fa-solid fa-tag"></i></div> <div class="link-name">Tags</div></a></li>
                 <li class="sb-nav-link my-2 d-flex justify-content-start"><a href="" class="d-flex px-3 nav-link"><div class="icon px-4"><i class="fa-solid fa-chart-simple"></i></div> <div class="link-name">Analytics</div></a></li>
                 <li class="sb-nav-link my-2 d-flex justify-content-start"><a href="" class="d-flex px-3 nav-link"><div class="icon px-4"><i class="fa-solid fa-calendar-days"></i></div> <div class="link-name">Post Plan</div></a></li>
             </ul>

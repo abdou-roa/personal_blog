@@ -36,8 +36,20 @@ Route::group(['middleware'=>'auth'], function(){
         Route::post('/storeCategory', [App\Http\Controllers\CategoryController::class, 'store'])->name('storeCategory');
         Route::delete('/deleteCategory/{id}', [App\Http\Controllers\CategoryController::class, 'destroy'])->name('deleteCategory');
         Route::get('/editCategory/{id}', [App\Http\Controllers\CategoryController::class, 'edit'])->name('editCategory');
-        Route::put('/updateCategory/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->name('updateCategory');
+        Route::post('/updateCategory/{id}', [App\Http\Controllers\CategoryController::class, 'update'])->name('updateCategory');
     //     });
+        Route::get('/manageTags', [App\Http\Controllers\TagController::class, 'index'])->name('manageTags');
+        Route::get('/addTag', [App\Http\Controllers\TagController::class, 'create'])->name('addTag');
+        Route::post('/storeTag', [App\Http\Controllers\TagController::class, 'store'])->name('storeTag');
+        Route::get('/storeTag/{id}', [App\Http\Controllers\TagController::class, 'edit'])->name('editTag');
+        Route::post('/updateTag/{id}', [App\Http\Controllers\TagController::class, 'update'])->name('updateTag');
+        Route::delete('/deleteTag/{id}', [App\Http\Controllers\TagController::class, 'destroy'])->name('deleteTag');
+
+        // TAG SEARCH in the addArticle section
+        
+        Route::get('/Tagsearch', [App\Http\Controllers\LiveSearch::class, 'action'])->name('Tagsearch');
+        Route::get('/addArticleTag', [App\Http\Controllers\TagController::class, 'addArticleTag'])->name('addArticleTag');
+
     });
  
 });

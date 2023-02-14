@@ -18,7 +18,7 @@
                 </div> --}}
 
 
-
+                {{-- {{dd($latest)}} --}}
                 {{-- title section --}}
 
                 <div class="title-area d-flex flex-column align-items-center">

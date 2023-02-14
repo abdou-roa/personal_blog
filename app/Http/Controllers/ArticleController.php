@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Article;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ArticleController extends Controller
 {
@@ -15,7 +16,9 @@ class ArticleController extends Controller
     public function index()
     {
         //redirecting to add article page
-        return view('admin.addArticle');
+        $categories=DB::table('categories')
+        ->get();
+        return view('admin.addArticle',compact('categories'));
 
     }
 

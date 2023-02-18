@@ -19,6 +19,10 @@ Auth::routes();
 
 Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/showArticle/{article:uuid}', [App\Http\Controllers\ArticleController::class, 'show'])->name('showArticle');
+Route::get('/listCategories', [App\Http\Controllers\ListCategoriesController::class, 'index'])->name('listCategories');
+Route::get('/listCategory/{id}', [App\Http\Controllers\ListCategoriesController::class, 'show'])->name('listCategory');
+Route::View('/about', 'about')->name('about');
 
 //routes with no middleware
 
@@ -30,7 +34,7 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
         Route::get('/writeArticle', [App\Http\Controllers\ArticleController::class, 'index'])->name('addArticle');
         Route::post('/crateArticle', [App\Http\Controllers\ArticleController::class, 'store'])->name('crateArticle');
-        // Route::group(['prefix'=>'category'], function(){
+        // Route::group(['prefix'=>'category'], function(){    
         Route::get('/manageCategories', [App\Http\Controllers\CategoryController::class, 'index'])->name('manageCategories');
         Route::get('/addCategory', [App\Http\Controllers\CategoryController::class, 'create'])->name('addCategory');
         Route::post('/storeCategory', [App\Http\Controllers\CategoryController::class, 'store'])->name('storeCategory');

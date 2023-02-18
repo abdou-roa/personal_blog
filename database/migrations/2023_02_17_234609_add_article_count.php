@@ -13,9 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::table('articles_tags', function (Blueprint $table) {
+        Schema::table('categories', function (Blueprint $table) {
             //
-            $table->id('tag_id')->change();
+            $table->integer('article_count')->default(0);
         });
     }
 
@@ -26,8 +26,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::table('articles_tags', function (Blueprint $table) {
+        Schema::table('categories', function (Blueprint $table) {
             //
+            $table->dropColumn('article_count');
         });
     }
 };

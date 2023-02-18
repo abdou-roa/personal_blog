@@ -1,6 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
+
 <div class="cnt py-5">
     <div class="row justify-content-center">
         <div class="col-12 inside-container">
@@ -44,13 +45,14 @@
                             </div>
                             <div class="remaining-info d-flex flex-column align-items-center">
                                 <div class="article-date">{{$latest->created_at->format('d/m/Y')}}</div>
-                                <div class="article-title">{{$latest->article_title}}</div>
+                                <a href="{{route('showArticle', $latest->article_id)}}"><div class="article-title">{{$latest->article_title}}</div></a>
                             </div>
                             </div>
                         @endif
                         <div class="py-5 px-5 remaining-container">
                             <div class="grid-container my-4">
                                 @foreach ($remainingArticles as $article)    
+                                {{-- {{dd($article->article_id)}} --}}
                                 <div class="grid-item d-flex flex-column align-items-start">
                                     <div class="img">
                                         
@@ -63,7 +65,8 @@
                                     </div>
                                     <div class="remaining-info d-flex flex-column align-items-start">
                                         <div class="article-date">{{$article->created_at->format('d/m/Y')}}</div>
-                                        <div class="article-title">{{$article->article_title}}</div>
+                                        <a href="{{route('showArticle', $article->article_id)}}"><div class="article-title">{{$article->article_title}}</div></a>
+                                        
                                     </div>
                                 </div>
                                 @endforeach

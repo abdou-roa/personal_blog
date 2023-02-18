@@ -56,6 +56,11 @@ class ArticleController extends Controller
 
         // $imageName = time().'.'.$request->file('article_image')->extension();  
        
+
+        //increase article count in the categories table 
+        DB::table('categories')->where('category_name', '=', $request->category)->increment('article_count');
+        // ->update([]);
+        //
         $file = $request->file('article_image');
         $fileName = time(). '.' . $file->getClientOriginalExtension();
         $path = $file->storeAs('images', $fileName);
@@ -83,7 +88,12 @@ class ArticleController extends Controller
      */
     public function show($id)
     {
-        //
+        
+        $article = DB::table('articles')
+        ->where('article_id','=', $id)
+        ->first();
+        // $article = Article::whereUuid($articleID)->firstOrFail();
+        return(view('blogPost',compact('article')));
     }
 
     /**

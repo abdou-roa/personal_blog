@@ -33,8 +33,26 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
+                    <ul class="navbar-nav me-auto mx-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{route('about')}}">About</a>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                                Categories
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item bg-secondary" href="{{route('listCategories')}}">All Categories</a>
+                              @foreach ($categories as $category)
+                                <a class="dropdown-item" href="#">{{$category->category_name}}</a>
+                              @endforeach
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                          </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

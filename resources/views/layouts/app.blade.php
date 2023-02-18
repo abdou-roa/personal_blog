@@ -13,11 +13,15 @@
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
     <link href="https://fonts.bunny.net/css?family=Nunito" rel="stylesheet">
 
+    <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
     <!-- Scripts -->
-    @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    @vite(['resources/sass/app.scss', 'resources/js/app.js', 'resources/css/app.css'])
 </head>
-<body>
-    <div id="app">
+<body class="bg-white">
+    <div id="app" class="main-cnt">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
@@ -29,8 +33,26 @@
 
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-
+                    <ul class="navbar-nav me-auto mx-auto">
+                        <li class="nav-item active">
+                            <a class="nav-link" href="{{route('home')}}">Home <span class="sr-only">(current)</span></a>
+                          </li>
+                          <li class="nav-item">
+                            <a class="nav-link" href="{{route('about')}}">About</a>
+                          </li>
+                          <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-bs-toggle="dropdown">
+                                Categories
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                              <a class="dropdown-item bg-secondary" href="{{route('listCategories')}}">All Categories</a>
+                              @foreach ($categories as $category)
+                                <a class="dropdown-item" href="#">{{$category->category_name}}</a>
+                              @endforeach
+                              <div class="dropdown-divider"></div>
+                              <a class="dropdown-item" href="#">Something else here</a>
+                            </div>
+                          </li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->
@@ -51,7 +73,7 @@
                         @else
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
-                                    {{ Auth::user()->name }}
+                                    {{ Auth::user()->full_name }}
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
@@ -72,9 +94,10 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="">
             @yield('content')
         </main>
+        <script src="https://kit.fontawesome.com/ad9679d66b.js" crossorigin="anonymous"></script>
     </div>
 </body>
 </html>

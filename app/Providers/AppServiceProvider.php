@@ -2,6 +2,8 @@
 
 namespace App\Providers;
 
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -24,5 +26,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot()
     {
         //
+        $categories = DB::table('categories')->orderBy('article_count')->limit(5)->get();
+        View::share('categories', $categories);
     }
 }

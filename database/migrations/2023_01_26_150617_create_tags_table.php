@@ -13,14 +13,9 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
-            $table->uuid('user_id')->primary();
-            $table->string('full_name');
-            $table->string('email')->unique();
-            $table->string('password');
-            $table->integer('roll')->default(9);
-            $table->timestamp('email_verified_at')->nullable();
-            $table->rememberToken();
+        Schema::create('tags', function (Blueprint $table) {
+            $table->uuid('tag_id')->primary();
+            $table->string('tag_name');
             $table->timestamps();
         });
     }
@@ -32,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('tags');
     }
 };

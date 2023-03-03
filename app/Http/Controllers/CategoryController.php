@@ -24,6 +24,13 @@ class CategoryController extends Controller
         return view('admin.category.manageCategories',compact('categories', 'articlesNumber'));
     }
 
+    public function addCategory(){
+        //redirecting to add article page
+        $categories=DB::table('categories')
+        ->get();
+        return view('admin.addArticle',compact('categories'));
+    }
+
     /**
      * Show the form for creating a new resource.
      *

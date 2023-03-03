@@ -11,14 +11,13 @@ class ListCategoriesController extends Controller
     //
     public function index()
     {
-        $categories = Category::all()->sortByDesc('created_at');
-        
+        $categories = Category::all()->sortBy('created_at');
         return view('listCategories',compact('categories'));
     }
     public function show($id){
         $category = DB::table('categories')->where('category_id', '=', $id)->first();
         $catagory_name = $category->category_name;
         $categoryArticles = DB::table('articles')->where('category', '=', $catagory_name)->paginate(6);
-        return view('categoryArticles', compact('categoryArticles'));
+        return view('categoryArticles', compact('categoryArticles', 'catagory_name'));
     }
 }

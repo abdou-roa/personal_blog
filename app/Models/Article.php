@@ -19,7 +19,7 @@ class Article extends Model
         'article_title',
         'article_text',
         'category',
-        'file',
+        'article_image',
     ];
 
     protected $casts = [

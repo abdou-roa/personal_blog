@@ -45,12 +45,12 @@
                                 Categories
                             </a>
                             <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                              <a class="dropdown-item bg-secondary" href="{{route('listCategories')}}">All Categories</a>
-                              @foreach ($categories as $category)
-                                <a class="dropdown-item" href="#">{{$category->category_name}}</a>
-                              @endforeach
-                              <div class="dropdown-divider"></div>
-                              <a class="dropdown-item" href="#">Something else here</a>
+                                @foreach ($categories as $category)
+                                <a class="dropdown-item" href="{{route('showCategoryArticles', $category->category_id)}}">{{$category->category_name}}</a>
+                                @endforeach
+                                <a class="dropdown-item bg-primary" href="{{route('listCategories')}}">All Categories</a>
+                              {{-- <div class="dropdown-divider"></div> --}}
+                              {{-- <a class="dropdown-item" href="#">Something else here</a> --}}
                             </div>
                           </li>
                     </ul>

@@ -2,6 +2,9 @@
 @section('content')
 {{-- {{dd($categoryArticles)}} --}}
 <div class="cnt">
+    <div class="d-flex justify-content-center">
+        <h1>{{$catagory_name}}</h1>
+    </div>
     <div class="py-5 px-5 remaining-container">
         <div class="grid-container my-4">
             @foreach ($categoryArticles as $article)    

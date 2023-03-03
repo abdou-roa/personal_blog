@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Article;
+use App\Models\Category;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,15 +14,17 @@ class ArticleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($categoryName)
     {
-        //redirecting to add article page
-        $categories=DB::table('categories')
-        ->get();
-        return view('admin.addArticle',compact('categories'));
-
+        $categoryArticles = DB::table('articles')->where('category', 'LIKE', '%'.$categoryName.'%')->paginate(6);
+        return view('categoryArticles', compact('categoryArticles'));
     }
 
+    //show articles in the admin panel
+    public function showAdminArticles(){
+        $articles = Article::all();
+        return view('admin.adminArticles',compact('articles'));
+    }
     /**
      * Show the form for creating a new resource.
      *
@@ -40,27 +43,10 @@ class ArticleController extends Controller
      */
     public function store(Request $request)
     {
-        //
-        // $this->validate($request,[
-        //     'article_name'=> 'required|text|min:15',
-        //     'article_text'=>'required|text|min:100',
-        //     'file'=>'image|mimes:jpg,png,jpeg,gif,svg|max:2048',
-        // ]);
-        // $data = Article::create([
-        //     'file' => $image_path, 
-        //     'article_title' => $article_title,
-        //     'article_text' => $article_text,
-        //     'category' => $category,
-        // ]);
         $article = new Article;
-
-        // $imageName = time().'.'.$request->file('article_image')->extension();  
-       
-
         //increase article count in the categories table 
         DB::table('categories')->where('category_name', '=', $request->category)->increment('article_count');
-        // ->update([]);
-        //
+        
         $file = $request->file('article_image');
         $fileName = time(). '.' . $file->getClientOriginalExtension();
         $path = $file->storeAs('images', $fileName);
@@ -75,8 +61,6 @@ class ArticleController extends Controller
         session()->flash('success', 'Image Upload successfully');
 
         return redirect()->route('dashboard');
-        
-        
 
     }
 
@@ -105,6 +89,9 @@ class ArticleController extends Controller
     public function edit($id)
     {
         //
+        $article = Article::where('article_id','=',$id)->first();
+        $categories = Category::all();
+        return view('admin.editArticle', compact('article', 'categories'));
     }
 
     /**
@@ -117,6 +104,14 @@ class ArticleController extends Controller
     public function update(Request $request, $id)
     {
         //
+        DB::table('categories')->where('category_name', '=', $request->category)->increment('article_count');
+        
+        $file = $request->file('article_image');
+        $fileName = time(). '.' . $file->getClientOriginalExtension();
+        $path = $file->storeAs('images', $fileName);
+        $article = Article::where('article_id','=',$id)->update(['article_image'=>$path, 'article_title'=>$request->article_title, 'article_text'=>$request->article_text, 'category'=>$request->category]);
+        return redirect()->route('showAdminArticles');
+
     }
 
     /**
@@ -128,5 +123,8 @@ class ArticleController extends Controller
     public function destroy($id)
     {
         //
+        $article = Article::where('article_id','=',$id);
+        $article->delete();
+        return redirect()->back();
     }
 }

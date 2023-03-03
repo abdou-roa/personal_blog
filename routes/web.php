@@ -22,6 +22,7 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/showArticle/{article:uuid}', [App\Http\Controllers\ArticleController::class, 'show'])->name('showArticle');
 Route::get('/listCategories', [App\Http\Controllers\ListCategoriesController::class, 'index'])->name('listCategories');
 Route::get('/listCategory/{id}', [App\Http\Controllers\ListCategoriesController::class, 'show'])->name('listCategory');
+Route::get('/Categories/{categoryName}', [App\Http\Controllers\ArticleController::class, 'index'])->name('showCategoryArticles');
 Route::View('/about', 'about')->name('about');
 
 //routes with no middleware
@@ -32,7 +33,7 @@ Route::View('/about', 'about')->name('about');
 Route::group(['middleware'=>'auth'], function(){
    Route::group(['middleware'=>'roleAdmin', 'prefix'=>'admin'], function(){
         Route::get('/', [App\Http\Controllers\AdminController::class, 'index'])->name('dashboard');
-        Route::get('/writeArticle', [App\Http\Controllers\ArticleController::class, 'index'])->name('addArticle');
+        Route::get('/writeArticle', [App\Http\Controllers\CategoryController::class, 'addCategory'])->name('addArticle');
         Route::post('/crateArticle', [App\Http\Controllers\ArticleController::class, 'store'])->name('crateArticle');
         // Route::group(['prefix'=>'category'], function(){    
         Route::get('/manageCategories', [App\Http\Controllers\CategoryController::class, 'index'])->name('manageCategories');
@@ -54,6 +55,12 @@ Route::group(['middleware'=>'auth'], function(){
         Route::get('/Tagsearch', [App\Http\Controllers\LiveSearch::class, 'action'])->name('Tagsearch');
         Route::get('/addArticleTag', [App\Http\Controllers\TagController::class, 'addArticleTag'])->name('addArticleTag');
 
+        // show all articles and manage them
+        Route::get('/articles', [App\Http\Controllers\ArticleController::class, 'showAdminArticles'])->name('showAdminArticles');
+        Route::get('/deleteArticle/{article:uuid}', [App\Http\Controllers\ArticleController::class, 'destroy'])->name('deleteArticle');
+        Route::get('/editFunction/{article:uuid}', [App\Http\Controllers\ArticleController::class, 'edit'])->name('editArticle');
+        Route::post('/updateFunction/{article:uuid}', [App\Http\Controllers\ArticleController::class, 'update'])->name('updateArticle');
+        
     });
  
 });

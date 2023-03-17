@@ -24,7 +24,8 @@ Route::get('/listCategories', [App\Http\Controllers\ListCategoriesController::cl
 Route::get('/listCategory/{id}', [App\Http\Controllers\ListCategoriesController::class, 'show'])->name('listCategory');
 Route::get('/Categories/{categoryName}', [App\Http\Controllers\ArticleController::class, 'index'])->name('showCategoryArticles');
 Route::View('/about', 'about')->name('about');
-
+//live search article 
+Route::get('/ArticleSearch', [App\Http\Controllers\ArticleLiveSearch::class,'index'])->name('articleSearch');
 //routes with no middleware
 
 
@@ -53,7 +54,7 @@ Route::group(['middleware'=>'auth'], function(){
         // TAG SEARCH in the addArticle section
         
         Route::get('/Tagsearch', [App\Http\Controllers\LiveSearch::class, 'action'])->name('Tagsearch');
-        Route::get('/addArticleTag', [App\Http\Controllers\TagController::class, 'addArticleTag'])->name('addArticleTag');
+        // Route::get('/addArticleTag', [App\Http\Controllers\TagController::class, 'addArticleTag'])->name('addArticleTag');
 
         // show all articles and manage them
         Route::get('/articles', [App\Http\Controllers\ArticleController::class, 'showAdminArticles'])->name('showAdminArticles');

@@ -11,10 +11,6 @@ class Article extends Model
     use HasFactory;
 
 
-
-
-
-    
     protected $fillable = [
         'article_title',
         'article_text',

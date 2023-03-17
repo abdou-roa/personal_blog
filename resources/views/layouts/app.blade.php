@@ -22,7 +22,7 @@
 </head>
 <body class="bg-white">
     <div id="app" class="main-cnt">
-        <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+        <nav class="navbar navbar-expand-md  shadow-sm">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -54,6 +54,14 @@
                             </div>
                           </li>
                     </ul>
+
+                    <div class="searchArticleForm  row">
+                        <div class="">
+                            <input id="articleSearch" class="form-control mr-sm-2 my-1" name="search" type="search" placeholder="Search" aria-label="Search" onkeyup="fetchArticleSearch()">
+                            <ul class="list-group position-absolute mr-sm-2 col-2 articleResults">
+                            </ul>
+                        </div>
+                    </div>
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ms-auto">
@@ -99,5 +107,42 @@
         </main>
         <script src="https://kit.fontawesome.com/ad9679d66b.js" crossorigin="anonymous"></script>
     </div>
+    <script>
+        let articleSearch = document.getElementById('articleSearch');
+        const seen = {}
+        const articleResults = document.querySelector('.articleResults');
+        function fetchArticleSearch(){
+            
+            let keyword = articleSearch.value;
+            if(keyword){
+            let url = "{{route('articleSearch')}}" + "?search=" +keyword;
+            console.log(url);
+            fetch(url)
+            .then((resp)=>resp.json())
+            .then((data)=>{
+                console.log(data);
+                data.map(article=>{
+                    let list_item = document.createElement('a');
+                    list_item.innerText = article.article_title;
+                    let article_id = article.article_id
+                    let route = "{{route('showArticle', ':id')}}";
+                    list_item.href = route.replace(':id', article_id)
+                    list_item.classList.add(['list-group-item'])
+                    if(seen[list_item]){
+                        return;
+                    }else{
+                        articleResults.appendChild(list_item);
+                        seen[list_item] = true
+                    }
+                })
+                data = [];
+            })
+            .catch(err=>{
+                console.log(err);
+            })
+        };
+            
+        }
+    </script>
 </body>
 </html>
